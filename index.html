@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Info</title>
+</head>
+<body>
+    <label>Guest Name</label>
+    <input type="text" id="guestName">
+    <br>
+    <label>Room</label>
+    <select id="roomNum">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+    </select>
+    <br>
+    <label for="">Baggage Inside</label>
+    <input type="checkbox" id="isBaggage"></input>
+    <br>
+    <label >In Italian</label>
+    <input type="checkbox" id="isItalian"></input>
+    <br>
+    <button onclick="generateFull()">Generate</button>
+    <pre id="textArea"></pre>
+
+    <script>
+        const codeA = '556622';
+        const codeB = '257533'; 
+
+        function generateFull() {
+
+            if (document.getElementById('guestName').value =="") {
+                console.log('textarea empty')
+                return 1;
+            }
+            var guestName = document.getElementById('guestName').value;
+            var roomNum = document.getElementById('roomNum').value;
+            var isBaggage = document.getElementById('isBaggage').checked;
+            var isItalian = document.getElementById('isItalian').checked;
+
+            var msgBuilder = "";
+
+            if (isItalian) {
+                // Generating Italian Message
+                var door = "";
+                var code = "";
+                if (roomNum > 4){
+                    door = "destra"
+                    code = codeB;
+                }else{
+                    door = "sinistra"
+                    code = codeA;
+                }
+    
+                msgBuilder = "Salve "+ guestName +"!\nVi scrivo le informazioni per accedere alla vostra Stanza.\n\nQuango arrivate all guesthouse, in largo Ciaia 7,  suonate il campanello e vi aprirò la porta.\n\nUna volta entrati, andate al 3’ piano\nPotete usare l'ascensore (perfavore ricordatevi di chiudere tutte e tre le porte🙏 grazie)\n\nUna volta usciti dall’ ascensore aprite la porta sulla *"+door+"* con un codice.\n\nCome aprire la porta:\n-premere un tasto qualsiasi per attivare la maniglia\n-inserire il codice *"+code+"*\n-premere il tasto del lucchetto e girare la maniglia\n\nLa vostra stanza e’ la numero *"+roomNum+"*, dentro troverete le chiavi della stanza e del portone.";
+    
+                if(isBaggage){
+                    msgBuilder = msgBuilder + "\nI vostri bagagli sono già all’ interno della stanza!"
+                }
+    
+                msgBuilder = msgBuilder + "\n\nAccesso WIFI\nNome: Centro Città Concept 5GHZ\nWifi Password: CCguesthouse2020\n\nBuona Permanenza!😃"
+                //End of message
+                
+            }
+            else{
+                // Generating English Message
+                var door = "";
+                var code = "";
+                if (roomNum > 4){
+                    door = "right"
+                    code = codeB;
+                }else{
+                    door = "left"
+                    code = codeA;
+                }
+    
+                msgBuilder = "Good afternoon "+ guestName +"!\nI am sending here all info to access the guesthouse\n\nWhen you arrive at the guesthouse, in largo Ciaia 7,  ring the buzzer and I will open the entry door for you.\n\nOnce you are in the building, you will need to go to the third (3) floor\nYou can use the lift (please, remember to close all the three doors when you leave it🙏 thank you)\n\nAt the third floor you have to open the Guesthouse door on the *"+door+"* with a code.\n\nHow to open the door:\n-press any key to activate the keypad\n-enter the code *"+code+"*\n-press the lock icon and turn the handle\n\nYour room is number *"+roomNum+"*, inside you will find the keys for the room and the building door.";
+    
+                if(isBaggage){
+                    msgBuilder = msgBuilder + "\nI have already put your baggages inside your room!"
+                }
+    
+                msgBuilder = msgBuilder + "\n\nWifi Information\nWifi Name: Centro Città Concept 5GHZ\nWifi Password: CCguesthouse2020\n\nHave a nice stay!😃"
+                //End of message
+            }
+            document.getElementById('textArea').innerHTML = msgBuilder;
+            navigator.clipboard.writeText(msgBuilder);
+        }
+    </script>
+    
+</body>
+</html>
